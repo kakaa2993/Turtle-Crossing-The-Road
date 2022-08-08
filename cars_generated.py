@@ -5,17 +5,11 @@ import time
 random.seed(time.time())
 
 
-class Cars(Turtle):
+class Cars:
 
-    def __init__(self, x_position, y_position):
-        super().__init__()
-        self.penup()
-        self.shape("square")
-        self.shapesize(stretch_wid=1,stretch_len=2)
-        self.color(self.random_colors())
-        self.setheading(180)
-        self.goto(x=x_position, y=y_position)
-
+    def __init__(self):
+        self.all_cars = []
+        self.movement_distance = 10
 
     def random_colors(self):
         red = random.randint(0, 255)
@@ -24,13 +18,19 @@ class Cars(Turtle):
         return red, green, blue
 
     def move(self, movement_distance):
-        self.forward(movement_distance)
-        # self.goto(x=self.xcor() - movement_distance, y=self.ycor())
+        for car in self.all_cars:
+            car.backward(movement_distance)
 
-    def restart(self, position):
-        self.goto(position)
-        # x = random.randrange(300, 900, step=50), y = random.randrange(-240, 230, step=40)
-
+    def create_a_car(self):
+        random_choice = random.randint(1, 4)
+        if random_choice == 1:
+            new_car = Turtle()
+            new_car.penup()
+            new_car.shape("square")
+            new_car.shapesize(stretch_wid=1, stretch_len=2)
+            new_car.color(self.random_colors())
+            new_car.goto(300, random.randint(-250, 250))
+            self.all_cars.append(new_car)
 
 
 
